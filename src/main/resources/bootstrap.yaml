@@ -9,6 +9,7 @@ spring:
   cloud:
     config: 
       uri: ${config_servers:http://localhost:9001}
-      searchPaths: ${spring.application.name}
+      #searchPaths: ${spring.application.name}
+      searchPaths: hystrix-consumer
       default-label: main 
       
