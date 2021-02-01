@@ -1,0 +1,23 @@
+hystrix:
+  threadpool: 
+    default:
+      coreSize: 100               # thread core size: start
+      maximumSize: 500            # thread core size: maximum
+      keepAliveTimeMinutes: 1
+      allowMaximumSizeToDivergeCoreSize: true 
+
+  command: 
+  # 3번째 이후의 요청 중 5초 동안 평가 시 응답시간이 200ms 초과한 요청수가 50%를 넘으면 circuit breaker가 오되며 5초간 지속된다. 
+    default: 
+      execution: 
+        isolation: 
+          thread: 
+            timeoutInMiliseconds: 200  # hystrix가 적용된 메소드는 이 시간안에 응답이 없으면, fallback method를 호출(default: 1000ms)
+      metrics:
+        rollingStats: 
+          timeInMilliseconds: 50000    # 성공/실패 통계 집계 시간(default: 10000ms) 
+      circuitBreaker: 
+        enabled: true
+        requestVolumeThreshold: 3      # circuit breaker 오픈 여부를 판단할 최소 request 수(default: 20)
+        errorThresholdPercentage: 50   # circuit breaker 오픈 여부를 판단할 실패 횟수(default: 50%)
+        sleepWindowInMiliseconds: 5000 # circuit breaker 지속 시간(default: 5000ms)
