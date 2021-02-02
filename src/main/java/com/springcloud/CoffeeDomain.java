@@ -16,6 +16,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 @Service
 @RefreshScope
 public class CoffeeDomain {
+	
 	@Autowired
 	private RestTemplate coffeeRestTemplate;
 	
@@ -24,6 +25,7 @@ public class CoffeeDomain {
 	
 	@HystrixCommand(fallbackMethod="getCoffeeFallback")
 	public List<String> getCoffees(String param) {
+		
 		String url = hystrixProducerHost+"/api/coffees/"+param;
 		System.out.println("call url=>"+url);
 		
